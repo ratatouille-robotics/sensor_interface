@@ -1,0 +1,8 @@
+<launch>
+    <arg name="cooking_pot_device" default="/dev/ttyUSB0" />
+
+    <group ns="cooking_pot">
+        <rosparam param="device" subst_value="True">$(arg cooking_pot_device)</rosparam>
+        <node name="weighing_scale" pkg="sensor_interface" type="weighing_scale.py" output="screen" />
+    </group>
+</launch>
