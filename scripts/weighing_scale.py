@@ -9,7 +9,7 @@ from sensor_interface.msg import Weight
 def read_weight(device="/dev/ttyUSB0", publish_rate=500):
     pub = rospy.Publisher("weighing_scale", Weight, queue_size=10)
     count = 0
-    rospy.init_node("weighing_scale", anonymous=True)
+    rospy.init_node("weighing_scale")
     rate = rospy.Rate(publish_rate)
     ser = serial.Serial(device, 9600, timeout=1)
     while not rospy.is_shutdown():
