@@ -6,7 +6,7 @@ import serial
 from sensor_interface.msg import Weight
 
 
-def read_weight(device="/dev/ttyUSB0", publish_rate=500):
+def read_weight(device="/dev/ttyUSB0", publish_rate=20):
     pub = rospy.Publisher("weighing_scale", Weight, queue_size=10)
     count = 0
     rospy.init_node("weighing_scale")
@@ -22,12 +22,13 @@ def read_weight(device="/dev/ttyUSB0", publish_rate=500):
                     f"Invalid value from sensor. Raw value received: {data}"\
                     + "Likely causes include exceeding weighing scale range."
                 )
-                print("Stopping weighing scale...")
-                break
+                continue
             send_msg = Weight()
             send_msg.header.seq = count
             send_msg.header.stamp = rospy.Time.now()
             send_msg.weight = float(parsed_data[0])
+            if data[0] == '-':
+                send_msg.weight *= -1
             count += 1
             pub.publish(send_msg)
             rate.sleep()
