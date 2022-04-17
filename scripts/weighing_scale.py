@@ -37,6 +37,7 @@ def read_weight(device="/dev/ttyUSB0", publish_rate=500):
 
 if __name__ == "__main__":
     try:
-        read_weight(device=rospy.get_param('device'))
+        # read_weight(device=rospy.get_param('device'))
+        read_weight()
     except rospy.ROSInterruptException:
         pass
