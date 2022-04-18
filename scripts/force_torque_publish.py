@@ -6,7 +6,7 @@ from geometry_msgs.msg import WrenchStamped
 
 class ForceTorquePublisher(object):
     GRAVITY = 9.820665
-    MOMENT_ARM_LENGTH = 0.14
+    MOMENT_ARM_LENGTH = 0.15
 
     def __init__(self):
         self.value = 0
