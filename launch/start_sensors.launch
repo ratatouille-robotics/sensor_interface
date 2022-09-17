@@ -1,10 +1,18 @@
 <launch>
+
+    <arg name="force_torque" default="1" />
+    <arg name="user_input_pcb" default="1" />
+
     <arg name="cooking_pot_device" default="/dev/ttyUSB0" />
 
     <group ns="cooking_pot">
         <rosparam param="device" subst_value="True">$(arg cooking_pot_device)</rosparam>
         <node name="weighing_scale" pkg="sensor_interface" type="weighing_scale.py" output="screen" />
     </group>
-    <node name="force_torque_publisher" pkg="sensor_interface" type="force_torque_publish.py" output="screen" />
-    <node name="user_input_pcb" pkg="sensor_interface" type="user_input_pcb.py" output="screen" />
+
+    <node name="force_torque_publisher" pkg="sensor_interface" type="force_torque_publish.py" output="screen" 
+        if="$(eval arg('force_torque') == 1)" />
+    <node name="user_input_pcb" pkg="sensor_interface" type="user_input_pcb.py" output="screen"
+        if="$(eval arg('user_input_pcb') == 1)" />
+
 </launch>
