@@ -4,9 +4,15 @@
     <arg name="user_input_pcb" default="1" />
 
     <arg name="cooking_pot_device" default="/dev/ttyUSB0" />
+    <arg name="sensing_station_device" default="/dev/ttyUSB1" />
 
     <group ns="cooking_pot">
         <rosparam param="device" subst_value="True">$(arg cooking_pot_device)</rosparam>
+        <node name="weighing_scale" pkg="sensor_interface" type="weighing_scale.py" output="screen" />
+    </group>
+
+    <group ns="sensing_station">
+        <rosparam param="device" subst_value="True">$(arg sensing_station_device)</rosparam>
         <node name="weighing_scale" pkg="sensor_interface" type="weighing_scale.py" output="screen" />
     </group>
 
