@@ -1,7 +1,8 @@
 <launch>
 
     <arg name="force_torque" default="1" />
-    <arg name="user_input_pcb" default="1" />
+    <arg name="auto_cooking_station" default="1" />
+    <!-- <arg name="user_input_pcb" default="1" /> -->
 
     <arg name="cooking_pot_device" default="/dev/cooking_pot" />
     <arg name="auto_cooking_station_device" default="/dev/auto_cooking_station" />
@@ -14,13 +15,9 @@
 
     <group ns="auto_cooking_station">
         <rosparam param="device" subst_value="True">$(arg auto_cooking_station_device)</rosparam>
-        <node name="weighing_scale" pkg="sensor_interface" type="weighing_scale.py" output="screen" />
+        <node name="weighing_scale" pkg="sensor_interface" type="weighing_scale.py" output="screen" 
+            if="$(eval arg('auto_cooking_station') == 1)" />
     </group>
-<!-- 
-    <group ns="sensing_station">
-        <rosparam param="device" subst_value="True">$(arg sensing_station_device)</rosparam>
-        <node name="weighing_scale" pkg="sensor_interface" type="weighing_scale.py" output="screen" />
-    </group> -->
 
     <node name="force_torque_publisher" pkg="sensor_interface" type="force_torque_publish.py" output="screen" 
         if="$(eval arg('force_torque') == 1)" />
