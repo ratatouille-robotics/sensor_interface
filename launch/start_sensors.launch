@@ -4,7 +4,7 @@
     <arg name="auto_cooking_station" default="1" />
     <!-- <arg name="user_input_pcb" default="1" /> -->
 
-    <arg name="cooking_pot_device" default="/dev/cooking_pot" />
+    <arg name="cooking_pot_device" default="/dev/ttyUSB0" />
     <arg name="auto_cooking_station_device" default="/dev/auto_cooking_station" />
     <arg name="sensing_station_device" default="/dev/sensing_station" />
 
